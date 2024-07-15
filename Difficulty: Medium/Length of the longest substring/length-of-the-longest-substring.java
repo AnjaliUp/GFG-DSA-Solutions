@@ -24,25 +24,21 @@ class GFG
 
 //User function Template for Java
 
-
 class Solution {
     int longestUniqueSubsttr(String S) {
         int windowStart = 0;
         int windowEnd = 0;
         int n = S.length();
-        HashSet<Character> set = new HashSet<>();
+        HashMap<Character, Integer> map = new HashMap<>();
         int maxLen = 0;
 
         while (windowEnd < n) {
             char ch = S.charAt(windowEnd);
-            if (set.contains(ch)) {
-                while (windowStart < windowEnd && set.contains(ch)) {
-                    set.remove(S.charAt(windowStart));
-                    windowStart++;
-                }
+            if (map.containsKey(ch) && map.get(ch) >= windowStart) {
+                windowStart = map.get(ch) + 1;
             }
 
-            set.add(ch);
+            map.put(ch, windowEnd);
             maxLen = Math.max(maxLen, windowEnd - windowStart + 1);
             windowEnd++;
         }
