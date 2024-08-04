@@ -1,12 +1,11 @@
 //{ Driver Code Starts
 import java.io.*;
-import java.util.*;
 import java.lang.*;
+import java.util.*;
 
 class GFG {
     public static void main(String args[]) throws IOException {
-        BufferedReader br =
-            new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.parseInt(br.readLine().trim());
 
         while (t-- > 0) {
@@ -17,14 +16,12 @@ class GFG {
             int end[] = new int[n];
 
             inputLine = br.readLine().trim().split(" ");
-            for (int i = 0; i < n; i++)
-                start[i] = Integer.parseInt(inputLine[i]);
+            for (int i = 0; i < n; i++) start[i] = Integer.parseInt(inputLine[i]);
 
             inputLine = br.readLine().trim().split(" ");
-            for (int i = 0; i < n; i++) 
-                end[i] = Integer.parseInt(inputLine[i]);
-                
-            int ans = new Solution().maxMeetings(start, end, n);
+            for (int i = 0; i < n; i++) end[i] = Integer.parseInt(inputLine[i]);
+
+            int ans = new Solution().maxMeetings(n, start, end);
             System.out.println(ans);
         }
     }
@@ -32,38 +29,36 @@ class GFG {
 
 // } Driver Code Ends
 
-
-class Solution 
-{
-    //Function to find the maximum number of meetings that can
-    //be performed in a meeting room.
-   public static int maxMeetings(int start[], int end[], int n) {
-        // Create a 2D array to store start and end times
-        int[][] nums = new int[n][2];
-        
-        // Fill the 2D array with start and end times
-        for (int i = 0; i < n; i++) {
-            nums[i][0] = start[i];
-            nums[i][1] = end[i];
+class Solution {
+    public int maxMeetings(int n, int start[], int end[]) {
+          ArrayList<int[]>list=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            list.add(new int[]{start[i],end[i]});
         }
-        
-        // Sort the array based on end times
-        Arrays.sort(nums, (a, b) -> Integer.compare(a[1], b[1]));
-        
-        // Initialize the count of meetings
-        int count = 1;
-        int ansEnd = nums[0][1];
-        
-        // Iterate through the sorted meetings
-        for (int i = 1; i < nums.length; i++) {
-            // If the start time of the current meeting is greater than the end time of the last meeting
-            if (nums[i][0] > ansEnd) {
-                count++;
-                ansEnd = nums[i][1];
+        Collections.sort(list, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] a, int[] b) {
+                int compareEnd = Integer.compare(a[1], b[1]);
+                if (compareEnd != 0) {
+                    return compareEnd;
+                }
+                return Integer.compare(b[0], a[0]);
             }
+        });
+        int cnt=0;
+        for(int i=0;i<n;){
+            int limit=list.get(i)[1];
+            cnt++;
+            while(i<n&&list.get(i)[0]<=limit){
+                i++;
+            }
+            
         }
-        
-        return count;
+        return cnt;
     }
-
 }
+  
+  
+  
+  
+  
