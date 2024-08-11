@@ -42,33 +42,33 @@ class GfG {
 // } Driver Code Ends
 
 
-class Solution
-{
-    //Function to find the maximum profit and the number of jobs done.
-    int[] JobScheduling(Job arr[], int n)
-    {
-        
-        Arrays.sort(arr, (a,b)-> b.profit - a.profit);
-        
-        boolean p[] = new boolean[n+1];
-        int res[] = new int[2];
-        
-        for(Job job:arr){
-            for(int i=job.deadline; i>=1; i--){
-                if(!p[i]){
-                    p[i] = true;
-                    res[0]++;
-                    res[1] += job.profit;
+class Solution {
+    // Function to find the maximum profit and the number of jobs done.
+    int[] JobScheduling(Job arr[], int n) {
+        Arrays.sort(arr, (a, b) -> b.profit - a.profit);
+
+        int maxDeadline = 0;
+        for (Job job : arr) {
+            maxDeadline = Math.max(maxDeadline, job.deadline);
+        }
+
+        boolean[] slot = new boolean[maxDeadline + 1];
+        int jobCount = 0;
+        int totalProfit = 0;
+
+        for (Job job : arr) {
+            for (int j = job.deadline; j > 0; j--) {
+                if (!slot[j]) {
+                    slot[j] = true;
+                    jobCount++;
+                    totalProfit += job.profit;
                     break;
                 }
             }
-            
         }
-        
-        return res;
+
+        return new int[]{jobCount, totalProfit};
     }
-    
-    
 }
 
 /*
