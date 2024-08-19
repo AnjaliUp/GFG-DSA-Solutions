@@ -25,14 +25,15 @@ class Solution{
         for(int i = 0; i < b.length(); i++){
             if(b.charAt(i) == '1'){
                 count++;
+                 maxi = Math.max(maxi, count);
             } else {
-                maxi = Math.max(maxi, count);
+               
                 count = 0;
             }
         }
         
         // After the loop, check if the last sequence was the longest
-        maxi = Math.max(maxi, count);
+        // maxi = Math.max(maxi, count);
         
         return maxi;
         
