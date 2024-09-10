@@ -1,88 +1,44 @@
 //{ Driver Code Starts
-//Initial Template for Java
-
-import java.math.*;
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-class Driverclass
-{
-    // Driver Code
-    static class FastReader{ 
-        BufferedReader br; 
-        StringTokenizer st; 
-  
-        public FastReader(){ 
-            br = new BufferedReader(new InputStreamReader(System.in)); 
-        } 
-  
-        String next(){ 
-            while (st == null || !st.hasMoreElements()){ 
-                try{ st = new StringTokenizer(br.readLine()); } catch (IOException  e){ e.printStackTrace(); } 
-            } 
-            return st.nextToken(); 
-        } 
-  
-        String nextLine(){ 
-            String str = ""; 
-            try{ str = br.readLine(); } catch (IOException e) { e.printStackTrace(); } 
-            return str; 
-        } 
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine()); // Number of test cases
 
-        Integer nextInt(){
-            return Integer.parseInt(next());
-        }
-        
-        Long nextLong(){
-            return Long.parseLong(next());
+        while (t-- > 0) {
+            String[] input = br.readLine().split(" ");
+            long[] a = new long[input.length];
+
+            for (int i = 0; i < input.length; i++) {
+                a[i] = Long.parseLong(input[i]);
+            }
+
+            Solution ob = new Solution();
+            System.out.println(ob.minCost(a));
         }
     }
-    
-	public static void main(String args[])
-	{
-		FastReader sc = new FastReader();
-		PrintWriter out = new PrintWriter(System.out);
-		int t = sc.nextInt();
-		
-		while(t>0)
-		{
-			int n = sc.nextInt();
-			long arr[] = new long[n];
-			
-			for(int i=0; i<n; i++)
-				arr[i] = sc.nextLong();
-		    out.println(new Solution().minCost(arr, n));
-		    t--;
-		}
-		out.flush();
-	}
 }
+
 // } Driver Code Ends
 
 
-class Solution
-{
-    //Function to return the minimum cost of connecting the ropes.
-    long minCost(long arr[], int n) 
-    {
-        // your code here
-        PriorityQueue<Long> minheap = new PriorityQueue<>();
-        
-        for(int i =0; i<n; i++){
-            minheap.add(arr[i]);
+class Solution {
+    public long minCost(long[] arr) {
+        PriorityQueue<Long> pq = new PriorityQueue<>();
+        long cost = 0;
+        for (long ele : arr) {
+            pq.add(ele);
+        }
+
+        while (pq.size() != 1) {
+            long first = pq.poll();
+            long second = pq.poll();
+            cost += first + second;
+            pq.add(second + first);
         }
         
-        long totalcost = 0;
-        
-        while(minheap.size()>1){
-            long first = minheap.poll();
-            long second = minheap.poll();
-            
-            long sum = first + second;
-            minheap.add(sum);
-            totalcost = totalcost + sum;
-        }
-        
-        return totalcost;
+        return cost;
     }
 }
