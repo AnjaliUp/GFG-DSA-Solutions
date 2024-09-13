@@ -57,12 +57,12 @@ class Solution {
                 len = i+1;
             }
             
-            long sub = sum-K;
+            long rem = sum-K;
             if(!map.containsKey(sum)){
                 map.put(sum,i);
             }
-            if(map.containsKey(sub)){
-                int len1 = i-map.get(sub);
+            if(map.containsKey(rem)){
+                int len1 = i-map.get(rem);
                 len = Math.max(len,len1);
             }
         }
