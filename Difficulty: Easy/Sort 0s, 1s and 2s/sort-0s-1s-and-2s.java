@@ -33,28 +33,19 @@ class GFG {
 
 class Solution {
     // Function to sort an array of 0s, 1s, and 2s
-    public void sort012(ArrayList<Integer> arr) 
-    {
+    public void sort012(ArrayList<Integer> arr) {
         // code here
-        int low=0;
-        int mid=0;
-        int high=arr.size()-1;
-        while(mid<= high)
-        {
-            if(arr.get(mid)==0)
-            {
-                Collections.swap(arr,low,mid);
-                mid++;low++;
-            }
-            else if(arr.get(mid)==1)
-                mid++;
-            else if(arr.get(mid)==2)
-            {
-                Collections.swap(arr,mid,high);
-                high--;
-            }
+        int count0 = 0, count1 = 0, count2 = 0;
+        
+        for(int i=0; i<arr.size(); i++){
+            if(arr.get(i) == 0) count0++;
+            else if(arr.get(i) == 1) count1++;
+            else count2++;
         }
         
+        
+        for(int i=0; i<count0; i++) arr.set(i,0);
+        for(int i=count0; i<count0+count1; i++) arr.set(i,1);
+        for(int i = count0+count1; i<arr.size(); i++) arr.set(i,2);
     }
 }
-
