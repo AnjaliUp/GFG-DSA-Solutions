@@ -29,32 +29,45 @@ class GFG {
 class Solution {
     // Function to return a list of integers denoting spiral traversal of matrix.
     public ArrayList<Integer> spirallyTraverse(int matrix[][]) {
-        // code here
-        ArrayList<Integer> list = new ArrayList<>();
-        int n=matrix.length;
-        if(n==0) return list;
-        int m=matrix[0].length;
         
-        int top=0,bottom = n-1,left = 0,right = m-1;
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        int n = matrix.length;
+        int m = matrix[0].length;
+        
+        int top = 0, left = 0, bottom = n-1, right = m-1;
+        
         while(top<=bottom && left<=right){
-            for(int i=left;i<=right;i++){
-                list.add(matrix[top][i]);
+            for(int i= left; i<=right; i++){
+                ans.add(matrix[top][i]);
             }
+            
             top++;
-            for(int i=top;i<=bottom;i++){
-                list.add(matrix[i][right]);
+            
+            for(int i= top; i<=bottom; i++){
+                ans.add(matrix[i][right]);
             }
+            
             right--;
-            for(int i=right;top<=bottom && i>=left;i--){
-                list.add(matrix[bottom][i]);
+            
+            if(top<=bottom){
+                for(int i= right; i>=left; i--){
+                    ans.add(matrix[bottom][i]);
+                }
+                
+                bottom--;
             }
-            bottom--;
-            for (int i = bottom;left<=right && i >= top; i--) 
-            {
-                list.add(matrix[i][left]);
+            
+            if(left<=right){
+                for(int i = bottom; i>=top; i--){
+                    ans.add(matrix[i][left]);
+                }
+                
+                left++;
             }
-            left++;
+            
         }
-        return list;
+        
+        return ans;
     }
 }
