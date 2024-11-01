@@ -16,7 +16,9 @@ class GFG
             Solution ob = new Solution();
             long ans = ob.reverse_digit(n);
             System.out.println(ans);
-        }
+        
+System.out.println("~");
+}
     }
 }
 
@@ -29,10 +31,12 @@ class Solution
 {
     public long reverse_digit(long n)
     {
-        long rev = 0;
+        long rev=0;
+        long d;
+        
         while(n!=0){
-            long d = n%10;
-            rev = (rev *10) + d;
+            d = n%10;
+            rev = (rev*10)+ d;
             n = n/10;
         }
         
